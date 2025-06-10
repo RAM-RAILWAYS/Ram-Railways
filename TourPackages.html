@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tour Packages - Ram Railways</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f7f7f7;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 40px 0 20px;
+      color: white;
+    }
+
+    .gradient-wrapper {
+      background: linear-gradient(to right, #3f0d91, #ae4c99);
+      padding: 40px 0;
+      min-height: 100vh;
+    }
+
+    .packages-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+.package-card {
+  background: white;
+  display: flex;
+  align-items: center; /* ✅ This vertically centers image and text */
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+    .package-card:hover {
+      transform: scale(1.01);
+    }
+
+    .package-card img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .package-details {
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .package-details h2 {
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .package-details p {
+      margin: 6px 0;
+      color: #555;
+    }
+
+    .package-details strong {
+      color: #222;
+    }
+
+    .booking-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      padding: 20px;
+      background-color: #f1f1f1;
+      text-align: right;
+      min-width: 150px;
+    }
+
+    .booking-section p {
+      font-size: 18px;
+      margin: 8px 0;
+      color: #333;
+    }
+
+    .booking-section a {
+      text-decoration: none;
+    }
+
+    .booking-section button {
+      background-color: #f6b800;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      color: black;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .booking-section button:hover {
+      background-color: #e0a800;
+    }
+   /* Logo circle */
+    #circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: white;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+      margin: 0 auto 10px auto; /* Center and add margin-bottom */
+    }
+
+    #circle:hover {
+      transform: scale(1.2);
+    }
+
+    #circle img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gradient-wrapper">
+<div id="circle">
+      <!-- Use a RELATIVE PATH like "images/Logo.png" if inside a folder -->
+      <img src="image/LOGO.png" alt="Ram Railways Logo" />
+    </div>
+
+    <h1>Explore Our Tour Packages</h1>
+
+    <div class="packages-container">
+      <!-- Package 1 -->
+      <div class="package-card">
+        <img src="image/andaman.png" alt="Andaman Tour">
+        <div class="package-details">
+          <h2>FAMILY ANDAMAN HOLIDAYS-GOLD</h2>
+          <p><strong>Duration:</strong> 5 Nights/6 Days</p>
+          <p><strong>Origin:</strong> Port Blair</p>
+          <p><strong>Departure:</strong> Daily</p>
+          <p><strong>Destination:</strong> Havelock / Neil / Port Blair</p>
+          <p><strong>Upcoming Date Of Journey:</strong> 12-JUN-25</p>
+          <p><strong>Inclusions:</strong> 🚖 Cab 🏨 Hotel 🍽️ Meal</p>
+        </div>
+        <div class="booking-section">
+          <p>Starting from</p>
+          <p><strong>₹ 25,880</strong></p>
+          <a href="Booking.html"><button>Book Now</button></a>
+        </div>
+      </div>
+
+      <!-- Package 2 -->
+      <div class="package-card">
+        <img src="image/amritsar.png" alt="Amritsar Tour">
+        <div class="package-details">
+          <h2>NEW DELHI–AMRITSAR</h2>
+          <p><strong>Duration:</strong> 1 Night/2 Days</p>
+          <p><strong>Origin:</strong> Delhi</p>
+          <p><strong>Departure:</strong> Every Friday & Saturday</p>
+          <p><strong>Destination:</strong> Amritsar</p>
+          <p><strong>Upcoming Date Of Journey:</strong> 14-JUN-25</p>
+          <p><strong>Inclusions:</strong> 🚆 Train 🚖 Cab 🏨 Hotel 🍽️ Meal</p>
+        </div>
+        <div class="booking-section">
+          <p>Starting from</p>
+          <p><strong>₹ 8,160</strong></p>
+          <a href="Booking.html"><button>Book Now</button></a>
+        </div>
+      </div>
+
+	<!-- Package 3 -->
+<div class="package-card">
+  <img src="image/goa.png" alt="Goa Tour">
+  <div class="package-details">
+    <h2>MUMBAI–GOA</h2>
+    <p><strong>Duration:</strong> 3 Nights/4 Days</p>
+    <p><strong>Origin:</strong> Mumbai</p>
+    <p><strong>Departure:</strong> Every Thursday</p>
+    <p><strong>Destination:</strong> Goa</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 20-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🏖️ Beach 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 10,500</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 4 -->
+<div class="package-card">
+  <img src="image/kanyakumari.png" alt="Kanyakumari Tour">
+  <div class="package-details">
+    <h2>CHENNAI–KANYAKUMARI</h2>
+    <p><strong>Duration:</strong> 2 Nights/3 Days</p>
+    <p><strong>Origin:</strong> Chennai</p>
+    <p><strong>Departure:</strong> Every Monday</p>
+    <p><strong>Destination:</strong> Kanyakumari</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 17-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🌊 Sea View 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 7,800</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 5 -->
+<div class="package-card">
+  <img src="image/ooty.png" alt="Ooty Tour">
+  <div class="package-details">
+    <h2>BANGALORE–OOTY</h2>
+    <p><strong>Duration:</strong> 2 Nights/3 Days</p>
+    <p><strong>Origin:</strong> Bangalore</p>
+    <p><strong>Departure:</strong> Every Friday</p>
+    <p><strong>Destination:</strong> Ooty</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 21-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🌲 Hills 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 9,250</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 6 -->
+<div class="package-card">
+  <img src="image/varanasi.png" alt="Varanasi Tour">
+  <div class="package-details">
+    <h2>KOLKATA–VARANASI</h2>
+    <p><strong>Duration:</strong> 2 Nights/3 Days</p>
+    <p><strong>Origin:</strong> Kolkata</p>
+    <p><strong>Departure:</strong> Every Wednesday</p>
+    <p><strong>Destination:</strong> Varanasi</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 19-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🛕 Temple Tour 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 7,990</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 7 -->
+<div class="package-card">
+  <img src="image/shirdi.png" alt="Shirdi Tour">
+  <div class="package-details">
+    <h2>HYDERABAD–SHIRDI</h2>
+    <p><strong>Duration:</strong> 1 Night/2 Days</p>
+    <p><strong>Origin:</strong> Hyderabad</p>
+    <p><strong>Departure:</strong> Every Saturday</p>
+    <p><strong>Destination:</strong> Shirdi</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 15-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🙏 Temple Visit 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 6,500</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 8 -->
+<div class="package-card">
+  <img src="image/jaipur.png" alt="Jaipur Tour">
+  <div class="package-details">
+    <h2>DELHI–JAIPUR</h2>
+    <p><strong>Duration:</strong> 2 Nights/3 Days</p>
+    <p><strong>Origin:</strong> Delhi</p>
+    <p><strong>Departure:</strong> Every Weekend</p>
+    <p><strong>Destination:</strong> Jaipur</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 22-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🏰 Fort Tour 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 8,400</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 9 -->
+<div class="package-card">
+  <img src="image/manali.png" alt="Manali Tour">
+  <div class="package-details">
+    <h2>DELHI–MANALI</h2>
+    <p><strong>Duration:</strong> 3 Nights/4 Days</p>
+    <p><strong>Origin:</strong> Delhi</p>
+    <p><strong>Departure:</strong> Every Friday</p>
+    <p><strong>Destination:</strong> Manali</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 28-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train ❄️ Snow 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 11,200</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 10 -->
+<div class="package-card">
+  <img src="image/kerala.png" alt="Kerala Tour">
+  <div class="package-details">
+    <h2>CHENNAI–KERALA</h2>
+    <p><strong>Duration:</strong> 4 Nights/5 Days</p>
+    <p><strong>Origin:</strong> Chennai</p>
+    <p><strong>Departure:</strong> Every Monday</p>
+    <p><strong>Destination:</strong> Kerala</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 17-JUN-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🌴 Backwaters 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 13,900</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+<!-- Package 11 -->
+<div class="package-card">
+  <img src="image/leh.png" alt="Leh Ladakh Tour">
+  <div class="package-details">
+    <h2>DELHI–LEH LADAKH</h2>
+    <p><strong>Duration:</strong> 5 Nights/6 Days</p>
+    <p><strong>Origin:</strong> Delhi</p>
+    <p><strong>Departure:</strong> 1st and 15th of every month</p>
+    <p><strong>Destination:</strong> Leh Ladakh</p>
+    <p><strong>Upcoming Date Of Journey:</strong> 01-JUL-25</p>
+    <p><strong>Inclusions:</strong> 🚆 Train 🏔️ Mountains 🏨 Hotel 🍽️ Meals</p>
+  </div>
+  <div class="booking-section">
+    <p>Starting from</p>
+    <p><strong>₹ 18,000</strong></p>
+    <a href="Booking.html"><button>Book Now</button></a>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</body>
+</html>

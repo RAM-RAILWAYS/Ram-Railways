@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IRCTC Ticket Booking</title>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.gradient-wrapper {
+  background: linear-gradient(to right, #3f0d91, #ae4c99);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+}
+
+.booking-wrapper {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+#circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: white;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px auto;
+  border: 3px solid #3f0d91;
+  transition: transform 0.3s ease-in-out;
+}
+#circle:hover {
+  transform: scale(1.1);
+}
+#circle img {
+  width: 100%;
+  height: auto;
+}
+
+h1 {
+  color: #3f0d91;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+input, select, button {
+  padding: 10px;
+  margin-top: 5px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #ae4c99;
+  box-shadow: 0 0 5px rgba(174, 76, 153, 0.3);
+}
+
+.passenger {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f7f7fb;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.passenger h4 {
+  color: #3f0d91;
+  margin-bottom: 10px;
+}
+
+#trainResults div {
+  margin-top: 10px;
+  text-align: left;
+  padding: 10px;
+  background-color: #f2e8fa;
+  border-radius: 6px;
+  border: 1px solid #d9b9ea;
+}
+
+#trainResults label {
+  display: inline;
+  margin-left: 8px;
+  color: #3f0d91;
+}
+
+button {
+  background-color: #ae4c99;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #9c3c8c;
+}
+</style>
+</head>
+<body>
+  <div class="gradient-wrapper">
+    <div class="booking-wrapper">
+      <div id="circle">
+        <img src="image/LOGO.png" alt="Ram Railways Logo" />
+      </div>
+      <h1>Train Ticket Booking</h1>
+      <form id="bookingForm">
+        <label for="from">From:</label>
+        <input type="text" id="from" required />
+
+        <label for="to">To:</label>
+        <input type="text" id="to" required />
+
+        <label for="date">Date of Journey:</label>
+        <input type="date" id="date" required />
+
+        <label for="trainClass">Train Class:</label>
+        <select id="trainClass" required>
+          <option>Select Class</option>
+          <option>AC First class (1A)</option>
+          <option>AC Two Tier (2A)</option>
+          <option>AC Three Tier (3A)</option>
+          <option>Sleeper Class</option>
+          <option>Chair car</option>
+          <option>Executive chair</option>
+          <option>General class</option>
+        </select>
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" required />
+
+        <label for="numPassengers">Number of Passengers:</label>
+        <input type="number" id="numPassengers" min="1" max="20" placeholder="Number of persons" required />
+
+        <div id="searchTrainSection">
+          <label for="searchTrains">Available Trains:</label>
+          <button type="button" onclick="searchTrains()">Search Trains</button>
+          <div id="trainResults"></div>
+        </div>
+
+        <input type="hidden" id="selectedTrain" required />
+        <div id="passengerContainer"></div>
+
+        <button type="submit">Book Now</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('bookingForm');
+    const numPassengersInput = document.getElementById('numPassengers');
+    const passengerContainer = document.getElementById('passengerContainer');
+    let passengersGenerated = false;
+
+    function generatePassengerFields() {
+      passengerContainer.innerHTML = '';
+      const num = parseInt(numPassengersInput.value);
+      for (let i = 1; i <= num; i++) {
+        const div = document.createElement('div');
+        div.className = 'passenger';
+        div.innerHTML = `
+          <h4>Passenger ${i}</h4>
+          <label>Name:</label>
+          <input type="text" name="name" required />
+          <label>Age:</label>
+          <input type="number" name="age" required />
+          <label>DOB:</label>
+          <input type="date" name="dob" required />
+        `;
+        passengerContainer.appendChild(div);
+      }
+      passengersGenerated = true;
+    }
+
+    async function searchTrains() {
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const date = document.getElementById('date').value;
+
+      if (!from || !to || !date) {
+        alert("Please enter From, To, and Date to search trains.");
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:3000/api/search-trains', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from, to, date })
+        });
+
+        const trains = await res.json();
+        const trainResults = document.getElementById('trainResults');
+        trainResults.innerHTML = '';
+
+        if (!trains.length) {
+          trainResults.innerHTML = '<p>No trains are available for the selected route and date</p>';
+          return;
+        }
+
+        trains.forEach((train, i) => {
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = 'selectedTrain';
+          radio.value = JSON.stringify(train);
+          radio.id = `train${i}`;
+          radio.required = true;
+
+          const label = document.createElement('label');
+          label.htmlFor = `train${i}`;
+          label.innerText = `${train.name} | From: ${train.from} | To: ${train.to} | Departure: ${train.departure} | Arrival: ${train.arrival} | Duration: ${train.duration}`;
+
+          const div = document.createElement('div');
+          div.appendChild(radio);
+          div.appendChild(label);
+          trainResults.appendChild(div);
+        });
+
+        alert("Select a train before booking.");
+      } catch (error) {
+        console.error(error);
+        alert("Failed to fetch trains. Is server running?");
+      }
+    }
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      if (!passengersGenerated) {
+        generatePassengerFields();
+        return;
+      }
+
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const date = document.getElementById('date').value;
+      const trainClass = document.getElementById('trainClass').value;
+      const email = document.getElementById('email').value;
+
+      const selectedRadio = document.querySelector('input[name="selectedTrain"]:checked');
+      if (!selectedRadio) {
+        alert("Please select a train from search results before booking.");
+        return;
+      }
+      const selectedTrain = JSON.parse(selectedRadio.value);
+
+      const passengerDivs = passengerContainer.getElementsByClassName('passenger');
+      const passengers = Array.from(passengerDivs).map(div => ({
+        name: div.querySelector('input[name="name"]').value,
+        age: div.querySelector('input[name="age"]').value,
+        dob: div.querySelector('input[name="dob"]').value
+      }));
+
+      const bookingData = {
+        from,
+        to,
+        date,
+        trainClass,
+        email,
+        passengers,
+        train: selectedTrain
+      };
+
+      try {
+        const res = await fetch('http://localhost:3000/booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bookingData)
+        });
+
+        const data = await res.json();
+        alert(data.message);
+      } catch (err) {
+        alert('Failed to book ticket. Please check server.');
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>

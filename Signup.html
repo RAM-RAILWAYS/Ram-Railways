@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Ram Railways</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 30px;
+      color: #333;
+      line-height: 1.6;
+    }
+.gradient-wrapper {
+  background: linear-gradient(to right, #3f0d91, #ae4c99);
+  padding: 40px;
+}
+
+.signup-container {
+  background: white;
+  padding: 25px 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  max-width: 900px;
+  margin: auto;
+}
+    h1 {
+      text-align: center;
+      color: #0d6efd;
+      margin-top: 10px;
+    }
+
+    h2 {
+      color: #0d6efd;
+      margin-top: 30px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Logo circle */
+    #circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: white;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+      margin: 0 auto 10px auto; /* Center and add margin-bottom */
+    }
+
+    #circle:hover {
+      transform: scale(1.2);
+    }
+
+    #circle img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+<div class="gradient-wrapper">
+    <div class="signup-container"><center>
+<div id="circle">
+      <!-- Use a RELATIVE PATH like "images/Logo.png" if inside a folder -->
+      <img src="image/LOGO.png" alt="Ram Railways Logo" />
+    </div>
+        <h2>Sign Up</h2>
+        <form id="signup-form"><br>
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required><br><br>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" required><br><br>
+
+            <button type="submit">Sign Up</button><br>
+        </form>
+
+        <p>Already have an account? <a href="login.html">Login here</a></p><br>
+
+        <div id="signup-message"></div></center>
+    </div>
+</div>
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const message = document.getElementById("signup-message");
+
+            if (password !== confirmPassword) {
+                message.innerHTML = "<p style='color: red;'>Passwords do not match.</p>";
+                return;
+            }
+
+            // Dummy signup logic (Replace with actual backend API call)
+            message.innerHTML = "<p style='color: green;'>Signup successful! Redirecting to login...</p>";
+            setTimeout(() => {
+                window.location.href = "login.html"; // Redirect to login page
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
