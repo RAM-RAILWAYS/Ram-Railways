@@ -129,7 +129,7 @@ button:hover {
   <div class="gradient-wrapper">
     <div class="booking-wrapper">
       <div id="circle">
-        <img src="image/LOGO.png" alt="Ram Railways Logo" />
+        <img src="C:/Users/tkram/Ram Railways/client/image/LOGO.png" alt="Ram Railways Logo" />
       </div>
       <h1>Train Ticket Booking</h1>
       <form id="bookingForm">
@@ -158,15 +158,15 @@ button:hover {
         <input type="email" id="email" required />
 
         <label for="numPassengers">Number of Passengers:</label>
-        <input type="number" id="numPassengers" min="1" max="20" placeholder="Number of persons" required />
+        <input type="number" id="numPassengers" min="1" max="20" required />
 
         <div id="searchTrainSection">
           <label for="searchTrains">Available Trains:</label>
           <button type="button" onclick="searchTrains()">Search Trains</button>
           <div id="trainResults"></div>
+          <div id="totalPriceDisplay" style="margin-top: 15px; font-weight: bold; color: #3f0d91;"></div>
         </div>
 
-        <input type="hidden" id="selectedTrain" required />
         <div id="passengerContainer"></div>
 
         <button type="submit">Book Now</button>
@@ -174,136 +174,165 @@ button:hover {
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById('bookingForm');
-    const numPassengersInput = document.getElementById('numPassengers');
-    const passengerContainer = document.getElementById('passengerContainer');
-    let passengersGenerated = false;
+<script>
+const form = document.getElementById('bookingForm');
+const numPassengersInput = document.getElementById('numPassengers');
+const passengerContainer = document.getElementById('passengerContainer');
+let passengersGenerated = false;
 
-    function generatePassengerFields() {
-      passengerContainer.innerHTML = '';
-      const num = parseInt(numPassengersInput.value);
-      for (let i = 1; i <= num; i++) {
-        const div = document.createElement('div');
-        div.className = 'passenger';
-        div.innerHTML = `
-          <h4>Passenger ${i}</h4>
-          <label>Name:</label>
-          <input type="text" name="name" required />
-          <label>Age:</label>
-          <input type="number" name="age" required />
-          <label>DOB:</label>
-          <input type="date" name="dob" required />
-        `;
-        passengerContainer.appendChild(div);
-      }
-      passengersGenerated = true;
-    }
+function generatePassengerFields() {
+  passengerContainer.innerHTML = '';
+  const num = parseInt(numPassengersInput.value);
+  for (let i = 1; i <= num; i++) {
+    const div = document.createElement('div');
+    div.className = 'passenger';
+    div.innerHTML = `
+      <h4>Passenger ${i}</h4>
+      <label>Name:</label>
+      <input type="text" name="name" required />
+      <label>Age:</label>
+      <input type="number" name="age" required />
+      <label>DOB:</label>
+      <input type="date" name="dob" required />
+    `;
+    passengerContainer.appendChild(div);
+  }
+  passengersGenerated = true;
+}
 
-    async function searchTrains() {
-      const from = document.getElementById('from').value;
-      const to = document.getElementById('to').value;
-      const date = document.getElementById('date').value;
+function updateTotalPrice() {
+  const selectedRadio = document.querySelector('input[name="selectedTrain"]:checked');
+  const numPassengers = parseInt(numPassengersInput.value);
+  const trainClass = document.getElementById('trainClass').value;
+  const totalPriceDisplay = document.getElementById('totalPriceDisplay');
 
-      if (!from || !to || !date) {
-        alert("Please enter From, To, and Date to search trains.");
-        return;
-      }
+  if (!selectedRadio || !numPassengers || !trainClass || trainClass === 'Select Class') {
+    totalPriceDisplay.innerText = '';
+    return;
+  }
 
-      try {
-        const res = await fetch('http://localhost:3000/api/search-trains', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ from, to, date })
-        });
+  const train = JSON.parse(selectedRadio.value);
+  let priceKey = trainClass;
+  if (trainClass.includes("1A")) priceKey = "AC";
+  else if (trainClass.includes("2A")) priceKey = "AC 2 Tier";
+  else if (trainClass.includes("3A")) priceKey = "AC 3 Tier";
+  else if (trainClass.toLowerCase().includes("sleeper")) priceKey = "Sleeper";
+  else if (trainClass.toLowerCase().includes("general")) priceKey = "General";
+  else if (trainClass.toLowerCase().includes("chair")) priceKey = "Chair Car";
+  else if (trainClass.toLowerCase().includes("executive")) priceKey = "Executive";
 
-        const trains = await res.json();
-        const trainResults = document.getElementById('trainResults');
-        trainResults.innerHTML = '';
+  const price = train.prices[priceKey] || 0;
+  const total = price * numPassengers;
 
-        if (!trains.length) {
-          trainResults.innerHTML = '<p>No trains are available for the selected route and date</p>';
-          return;
-        }
+  totalPriceDisplay.innerText = `Total Price for ${numPassengers} passenger(s): ₹${total}`;
+}
 
-        trains.forEach((train, i) => {
-          const radio = document.createElement('input');
-          radio.type = 'radio';
-          radio.name = 'selectedTrain';
-          radio.value = JSON.stringify(train);
-          radio.id = `train${i}`;
-          radio.required = true;
+async function searchTrains() {
+  const from = document.getElementById('from').value;
+  const to = document.getElementById('to').value;
+  const date = document.getElementById('date').value;
 
-          const label = document.createElement('label');
-          label.htmlFor = `train${i}`;
-          label.innerText = `${train.name} | From: ${train.from} | To: ${train.to} | Departure: ${train.departure} | Arrival: ${train.arrival} | Duration: ${train.duration}`;
+  if (!from || !to || !date) {
+    alert("Please enter From, To, and Date to search trains.");
+    return;
+  }
 
-          const div = document.createElement('div');
-          div.appendChild(radio);
-          div.appendChild(label);
-          trainResults.appendChild(div);
-        });
-
-        alert("Select a train before booking.");
-      } catch (error) {
-        console.error(error);
-        alert("Failed to fetch trains. Is server running?");
-      }
-    }
-
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      if (!passengersGenerated) {
-        generatePassengerFields();
-        return;
-      }
-
-      const from = document.getElementById('from').value;
-      const to = document.getElementById('to').value;
-      const date = document.getElementById('date').value;
-      const trainClass = document.getElementById('trainClass').value;
-      const email = document.getElementById('email').value;
-
-      const selectedRadio = document.querySelector('input[name="selectedTrain"]:checked');
-      if (!selectedRadio) {
-        alert("Please select a train from search results before booking.");
-        return;
-      }
-      const selectedTrain = JSON.parse(selectedRadio.value);
-
-      const passengerDivs = passengerContainer.getElementsByClassName('passenger');
-      const passengers = Array.from(passengerDivs).map(div => ({
-        name: div.querySelector('input[name="name"]').value,
-        age: div.querySelector('input[name="age"]').value,
-        dob: div.querySelector('input[name="dob"]').value
-      }));
-
-      const bookingData = {
-        from,
-        to,
-        date,
-        trainClass,
-        email,
-        passengers,
-        train: selectedTrain
-      };
-
-      try {
-        const res = await fetch('http://localhost:3000/booking', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(bookingData)
-        });
-
-        const data = await res.json();
-        alert(data.message);
-      } catch (err) {
-        alert('Failed to book ticket. Please check server.');
-        console.error(err);
-      }
+  try {
+    const res = await fetch('http://localhost:3000/api/search-trains', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from, to, date })
     });
-  </script>
 
+    const trains = await res.json();
+    const trainResults = document.getElementById('trainResults');
+    trainResults.innerHTML = '';
+
+    if (!trains.length) {
+      trainResults.innerHTML = '<p>No trains available.</p>';
+      return;
+    }
+
+    trains.forEach((train, i) => {
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'selectedTrain';
+      radio.value = JSON.stringify(train);
+      radio.id = `train${i}`;
+      radio.required = true;
+
+      radio.addEventListener('change', updateTotalPrice);
+
+      const label = document.createElement('label');
+      label.htmlFor = `train${i}`;
+      label.innerText = `${train.name} | From: ${train.from} | To: ${train.to} | Departure: ${train.departure} | Arrival: ${train.arrival} | Duration: ${train.duration}`;
+
+      const div = document.createElement('div');
+      div.appendChild(radio);
+      div.appendChild(label);
+      trainResults.appendChild(div);
+    });
+
+    document.getElementById('numPassengers').addEventListener('input', updateTotalPrice);
+    document.getElementById('trainClass').addEventListener('change', updateTotalPrice);
+  } catch (error) {
+    console.error(error);
+    alert("Error fetching trains.");
+  }
+}
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  if (!passengersGenerated) {
+    generatePassengerFields();
+    return;
+  }
+
+  const from = document.getElementById('from').value;
+  const to = document.getElementById('to').value;
+  const date = document.getElementById('date').value;
+  const trainClass = document.getElementById('trainClass').value;
+  const email = document.getElementById('email').value;
+  const selectedRadio = document.querySelector('input[name="selectedTrain"]:checked');
+
+  if (!selectedRadio) {
+    alert("Please select a train.");
+    return;
+  }
+
+  const selectedTrain = JSON.parse(selectedRadio.value);
+  const passengerDivs = passengerContainer.getElementsByClassName('passenger');
+  const passengers = Array.from(passengerDivs).map(div => ({
+    name: div.querySelector('input[name="name"]').value,
+    age: div.querySelector('input[name="age"]').value,
+    dob: div.querySelector('input[name="dob"]').value
+  }));
+
+  const bookingData = {
+    from,
+    to,
+    date,
+    trainClass,
+    email,
+    passengers,
+    train: selectedTrain
+  };
+
+  try {
+    const res = await fetch('http://localhost:3000/booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bookingData)
+    });
+
+    const data = await res.json();
+    alert(data.message);
+  } catch (err) {
+    alert('Booking failed. Check server.');
+    console.error(err);
+  }
+});
+</script>
 </body>
 </html>

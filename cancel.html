@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cancel Ticket - Ram Railways</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .gradient-wrapper {
+      background: linear-gradient(to right, #3f0d91, #ae4c99);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+    }
+
+    .booking-wrapper {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: white;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 20px auto;
+      border: 3px solid #3f0d91;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #circle:hover {
+      transform: scale(1.1);
+    }
+
+    #circle img {
+      width: 100%;
+      height: auto;
+    }
+
+    h1 {
+      color: #3f0d91;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      text-align: left;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, button {
+      padding: 10px;
+      margin-top: 5px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ae4c99;
+      box-shadow: 0 0 5px rgba(174, 76, 153, 0.3);
+    }
+
+    button {
+      background-color: #ae4c99;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #9c3c8c;
+    }
+
+    #cancelMessage {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-wrapper">
+    <div class="booking-wrapper">
+      <div id="circle">
+        <img src="image/Logo.png" alt="Ram Railways Logo" />
+      </div>
+      <h1>Cancel Your Ticket</h1>
+      <form id="cancelForm">
+        <label for="pnr">Enter Your PNR Number:</label>
+        <input type="text" id="pnr" placeholder="Enter 10-digit PNR" required />
+        <button type="submit">Cancel Ticket</button>
+      </form>
+      <p id="cancelMessage"></p>
+    </div>
+  </div>
+
+  <script src="cancel.js"></script>
+</body>
+</html>

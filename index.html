@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ram Railways</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+
+<script>
+  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!user) {
+    // Not logged in, redirect to login
+    window.location.href = "login.html";
+  }
+</script>
+
+
 </head>
 <body>
     <!-- Topbar Section -->
     <div id="topbar">
         <div id="circle">
-            <img src="image/LOGO.png" alt="Logo" />
+            <img src="C:/Users/tkram/Ram Railways/client/image/Logo.png" alt="Logo" />
         </div>
         <h2>Ram Railways</h2>
-
        <!-- Login and Signup Buttons -->
 <div id="auth-buttons">
     <a href="Login.html">
@@ -23,12 +32,19 @@
         <button id="signup-button">Sign Up</button>
     </a>
 </div>
+
+<div id="user-avatar" style="display: none;">
+  <img id="avatarImg" class="avatar" />
+  <button onclick="logout()">Logout</button>
+</div>
+
     <!-- Right-aligned links section -->
         <div id="topbar-links">
              <ul>
-        	<li><a href="about.html">Train Info</a></li>
+        	<li><a href="about.html">About As</a></li>
         	<li><a href="Booking.html">Book Tickets</a></li>
-        	<li><a href="https://mail.google.com/mail/u/0/#spam">My Bookings</a></li>
+        	<li><a href="https://mail.google.com/mail/u/0/#spam" target="_blank">My Bookings</a></li>
+		<li><a href="cancel.html">Cancel Ticket</a></li>
         	<li><a href="about.html">Customer Support</a></li>
     	     </ul>
         </div>
@@ -100,46 +116,46 @@
 <center><h2> Ram Railways </h2></center>
 <div class="services-row">
   <div class="service-item">
-    <img src="image/flight.png" alt="Flights Icon">
+    <img src="C:/Users/tkram/Ram Railways/client/image/flight.png" alt="Flights Icon">
     <p>FLIGHTS</p>
   </div>
   <div class="service-item">
-    <img src="image/hotels.png" alt="Hotels Icon">
+    <img src="C:/Users/tkram/Ram Railways/client/image/hotels.png" alt="Hotels Icon">
     <p>HOTELS</p>
   </div>
   <div class="service-item">
-    <img src="image/raildrishti.png" alt="Rail Drishti Icon">
+    <img src="C:/Users/tkram/Ram Railways/client/image/raildrishti.png" alt="Rail Drishti Icon">
     <p>RAIL DRISHTI</p>
   </div>
   <div class="service-item"> 
-    <img src="image/ecatering.png" alt="E-Catering Icon">
+    <img src="C:/Users/tkram/Ram Railways/client/image/ecatering.png" alt="E-Catering Icon">
     <p>E-CATERING</p>
   </div>
   <div class="service-item">
-    <img src="image/bus.png" alt="Bus Icon">
+    <img src="C:/Users/tkram/Ram Railways/client/image/bus.png" alt="Bus Icon">
     <p>BUS</p>
   </div>
 </div>
 
 <div class="services-row">
   <div class="service-item">
-    <img src="image/holidaypackages.png" alt="HOLIDAY PACKAGES">
+    <img src="C:/Users/tkram/Ram Railways/client/image/holidaypackages.png" alt="HOLIDAY PACKAGES">
     <p>HOLIDAY PACKAGES</p>
   </div>
   <div class="service-item">
-    <img src="image/tourishttrain.png" alt="TOURISHT TRAIN">
+    <img src="C:/Users/tkram/Ram Railways/client/image/tourishttrain.png" alt="TOURISHT TRAIN">
     <p>TOURISHT TRAIN</p>
   </div>
   <div class="service-item">
-    <img src="image/hillrailways.png" alt="HILL RAILWAYS">
+    <img src="C:/Users/tkram/Ram Railways/client/image/hillrailways.png" alt="HILL RAILWAYS">
     <p>HILL RAILWAYS</p>
   </div>
   <div class="service-item">
-    <img src="image/chartertrain.png" alt="CHARTER TRAIN">
+    <img src="C:/Users/tkram/Ram Railways/client/image/chartertrain.png" alt="CHARTER TRAIN">
     <p>CHARTER TRAIN</p>
   </div>
   <div class="service-item">
-    <img src="image/gallery.png" alt="GALLERY">
+    <img src="C:/Users/tkram/Ram Railways/client/image/gallery.png" alt="GALLERY">
     <p>GALLERY</p>
   </div>
 </div>
@@ -150,24 +166,24 @@
 <div class="bg-info"><br><br>
 <div class="package-row">
   <div class="package-box">
-    <img src="image/maharajasexpress.png" alt="Maharajas Express">
+    <img src="C:/Users/tkram/Ram Railways/client/image/maharajasexpress.png" alt="Maharajas Express">
     <h3>Maharajas' Express</h3>
     <p>Redefining Royalty, Luxury and Comfort, Maharajas' express takes you on a sojourn to the era of bygone stately splendour of princely states.</p>
-    <a href="TourPackages.html">Read More ➔</a>
+    <a href="C:/Users/tkram/Ram Railways/client/TourPackages.html">Read More ➔</a>
   </div>
 
   <div class="package-box">
-    <img src="image/international.png" alt="International Packages">
+    <img src="C:/Users/tkram/Ram Railways/client/image/international.png" alt="International Packages">
     <h3>International Packages</h3>
     <p>Best deals in International Holiday packages, handpicked by IRCTC, for Thailand, Dubai, Sri Lanka, Hong Kong, and more.</p>
-    <a href="TourPackages.html">Read More ➔</a>
+    <a href="C:/Users/tkram/Ram Railways/client/TourPackages.html">Read More ➔</a>
   </div>
 
   <div class="package-box">
-    <img src="image/domestic.png" alt="Domestic Air Packages">
+    <img src="C:/Users/tkram/Ram Railways/client/image/domestic.png" alt="Domestic Air Packages">
     <h3>Domestic Air Packages</h3>
     <p>Be it Tirupati, Shirdi, or the Blue Mountains of the North East, IRCTC has it all. Discover India through IRCTC!</p>
-    <a href="TourPackages.html">Read More ➔</a>
+    <a href="C:/Users/tkram/Ram Railways/client/TourPackages.html">Read More ➔</a>
   </div>
 </div>
 </div>
@@ -178,16 +194,16 @@
  <p>Get Connected with us on social networks</p>
   <div class="social-icons">
     <!-- Replace # with actual links -->
-    <a href="https://www.facebook.com/" target="_blank"><img src="image/facebook.png" alt="Facebook"></a>
-    <a href="https://web.whatsapp.com/" target="_blank"><img src="image/whatsapp.png" alt="WhatsApp"></a>
-    <a href="https://www.youtube.com/" target="_blank"><img src="image/youtube.png" alt="YouTube"></a>
-    <a href="https://www.instagram.com/" target="_blank"><img src="image/instagram.png" alt="Instagram"></a>
-    <a href="https://in.linkedin.com/" target="_blank"><img src="image/linkedin.png" alt="LinkedIn"></a>
-    <a href="https://web.telegram.org/k/" target="_blank"><img src="image/telegram.png" alt="Telegram"></a>
-    <a href="https://www.pinterest.com/" target="_blank"><img src="image/pinterest.png" alt="Pinterest"></a>
-    <a href="https://www.tumblr.com/" target="_blank"><img src="image/tumblr.png" alt="Tumblr"></a>
-    <a href="https://accounts.snapchat.com/accounts/v2/login?continue=%2Faccounts%2Fwelcome" target="_blank"><img src="image/snapchat.png" alt="Snapchat"></a>
-    <a href="https://x.com/" target="_blank"><img src="image/twitter.png" alt="Twitter"></a>
+    <a href="https://www.facebook.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image//facebook.png" alt="Facebook"></a>
+    <a href="https://web.whatsapp.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/whatsapp.png" alt="WhatsApp"></a>
+    <a href="https://www.youtube.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/youtube.png" alt="YouTube"></a>
+    <a href="https://www.instagram.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/instagram.png" alt="Instagram"></a>
+    <a href="https://in.linkedin.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/linkedin.png" alt="LinkedIn"></a>
+    <a href="https://web.telegram.org/k/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/telegram.png" alt="Telegram"></a>
+    <a href="https://www.pinterest.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/pinterest.png" alt="Pinterest"></a>
+    <a href="https://www.tumblr.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/tumblr.png" alt="Tumblr"></a>
+    <a href="https://accounts.snapchat.com/accounts/v2/login?continue=%2Faccounts%2Fwelcome" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/snapchat.png" alt="Snapchat"></a>
+    <a href="https://x.com/" target="_blank"><img src="C:/Users/tkram/Ram Railways/client/image/twitter.png" alt="Twitter"></a>
   </div>
 </div>
 
@@ -229,5 +245,33 @@
 
     <!-- JavaScript -->
     <script src="script.js"></script>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    const authBtns = document.getElementById("auth-buttons");
+    const avatarDiv = document.getElementById("user-avatar");
+    const avatarImg = document.getElementById("avatarImg");
+
+    if (user && user.email) {
+      const username = user.email.split("@")[0];
+      avatarImg.src = `https://ui-avatars.com/api/?name=${username}&background=random`;
+      avatarImg.alt = username;
+      avatarImg.style.width = "40px";
+      avatarImg.style.height = "40px";
+      avatarImg.style.borderRadius = "50%";
+
+      authBtns.style.display = "none";
+      avatarDiv.style.display = "flex";
+      avatarDiv.style.alignItems = "center";
+    }
+  });
+
+  function logout() {
+    localStorage.removeItem("loggedInUser");
+    window.location.reload();
+  }
+</script>
+
 </body>
 </html>

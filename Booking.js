@@ -19,11 +19,11 @@ document.getElementById("passengerCount").addEventListener("change", function ()
 document.getElementById("bookingForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
+  const from = document.getElementById("from").value.trim();
+  const to = document.getElementById("to").value.trim();
   const date = document.getElementById("date").value;
   const trainClass = document.getElementById("class").value;
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const count = parseInt(document.getElementById("passengerCount").value);
 
   const names = document.querySelectorAll(".name");
@@ -31,42 +31,71 @@ document.getElementById("bookingForm").addEventListener("submit", async function
   const dobs = document.querySelectorAll(".dob");
 
   const passengers = [];
-
   for (let i = 0; i < count; i++) {
     passengers.push({
-      name: names[i].value,
-      age: ages[i].value,
+      name: names[i].value.trim(),
+      age: parseInt(ages[i].value),
       dob: dobs[i].value,
     });
   }
 
-  const data = {
+  const selectedTrainId = document.querySelector('input[name="train"]:checked');
+  if (!selectedTrainId) {
+    alert("Please select a train before booking.");
+    return;
+  }
+
+  let trainData;
+  try {
+    trainData = JSON.parse(selectedTrainId.value);  // Should be a stringified object
+  } catch (e) {
+    alert("Train selection is invalid.");
+    return;
+  }
+
+  const bookingData = {
     from,
     to,
     date,
     trainClass,
     email,
     passengers,
+    train: trainData
   };
 
-  console.log("🚀 Sending booking data to backend:", data); // Logging data
+  console.log("🚀 Sending booking data to backend:", bookingData);
 
   try {
-      await fetch("http://192.168.0.17:8080/booking", {
+    const res = await fetch("http://localhost:3000/booking", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(bookingData)
     });
 
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Status ${res.status}: ${text}`);
+    console.log("📡 Server Response Status:", res.status);
+
+    const responseBody = await res.text();
+    let result;
+
+    try {
+      result = JSON.parse(responseBody);
+    } catch (err) {
+      throw new Error(`Invalid JSON from server: ${responseBody}`);
     }
 
-    const result = await res.json();
-    alert(result.message);
+    if (!res.ok) {
+      console.error("❌ Server error:", result);
+      alert("❌ Booking failed: " + (result.error || "Unknown error"));
+      return;
+    }
+
+    console.log("✅ Booking Success:", result);
+    alert("🎫 Booking Confirmed!\n" + result.message);
+
   } catch (err) {
-    console.error("❌ Fetch Error:", err);
-    alert("Booking failed. Error: " + err.message);
+    console.error("❌ Fetch/Network Error:", err);
+    alert("Booking failed. Reason: " + err.message);
   }
 });
