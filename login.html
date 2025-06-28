@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Ram Railways</title>
+
+<!-- Bootstrap CSS CDN added -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      padding: 30px;
+      color: #333;
+      line-height: 1.6;
+    }
+.gradient-wrapper {
+  background: linear-gradient(to right, #3f0d91, #ae4c99);
+  padding: 40px;
+}
+
+.container {
+  background: white;
+  padding: 25px 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  max-width: 900px;
+  margin: auto;
+}
+    h1 {
+      text-align: center;
+      color: #0d6efd;
+      margin-top: 10px;
+    }
+
+    h2 {
+      color: #0d6efd;
+      margin-top: 30px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Logo circle */
+    #circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: white;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+      margin: 0 auto 10px auto; /* Center and add margin-bottom */
+    }
+
+    #circle:hover {
+      transform: scale(1.2);
+    }
+
+    #circle img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+    <div class="gradient-wrapper">
+        <div class="container">
+            <div class="login-container"><center>
+<div id="circle">
+      <!-- Use a RELATIVE PATH like "images/Logo.png" if inside a folder -->
+      <img src="C:/Users/tkram/Ram Railways/client/image/LOGO.png" alt="Ram Railways Logo" />
+    </div>
+                <h2>Login</h2>
+                <form id="login-form"><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" placeholder="Email" required><br><br>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Password" required><br><br>
+
+                    <button type="submit">Login</button><br><br>
+                </form>
+
+                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+
+                <div id="login-message"></div>
+            </center>
+            </div>
+        </div>
+    </div>
+
+ <script>
+document.getElementById("login-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("login-message");
+
+    try {
+        const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (response.ok) {
+            message.innerHTML = "<p style='color: green;'>Login successful! Redirecting...</p>";
+            setTimeout(() => {
+                window.location.href = "index.html"; // redirect on success
+            }, 2000);
+        } else {
+            const text = await response.text();
+            message.innerHTML = `<p style='color: red;'>${text}</p>`;
+        }
+    } catch (error) {
+        console.error("Login failed:", error);
+        message.innerHTML = "<p style='color: red;'>Server error. Please try again.</p>";
+    }
+});
+</script>
+<script src="auth"></script>
+<script src="Login.js"></script>
+</body>
+</html>
